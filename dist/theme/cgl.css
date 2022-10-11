@@ -395,28 +395,28 @@ footer.hidden {
 }
 
 .slide-background.title-slide {
-  background-image: url("../../../assets/imgs/note-intro.webp"), url("../../../assets/imgs/cgl-stitched.webp"), url("../../../assets/imgs/sf-logo-inset.webp"), url("../../../assets/imgs/lets-succeed-together.webp"), url("../../../assets/imgs/ferns.webp"), url("../../../assets/imgs/woodbackground.webp");
+  background-image: url("../../assets/imgs/note-intro.webp"), url("../../assets/imgs/cgl-stitched.webp"), url("../../assets/imgs/sf-logo-inset.webp"), url("../../assets/imgs/lets-succeed-together.webp"), url("../../assets/imgs/ferns.webp"), url("../../assets/imgs/woodbackground.webp");
   background-repeat: no-repeat;
   background-position: center, center 5%, 90% 5%, 95% 90%, center, center;
   background-size: 50%, 30%, 10%, 30%, cover, cover;
 }
 
 .slide-background.thankyou {
-  background-image: url("../../../assets/imgs/thankyou.webp"), url("../../../assets/imgs/back-green.webp");
+  background-image: url("../../assets/imgs/thankyou.webp"), url("../../assets/imgs/back-green.webp");
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain, cover;
 }
 
 .slide-background {
-  background-image: url("../../../assets/imgs/back-blue.webp");
+  background-image: url("../../assets/imgs/back-blue.webp");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
 }
 
 .slide-background.green {
-  background-image: url("../../../assets/imgs/back-green.webp");
+  background-image: url("../../assets/imgs/back-green.webp");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;

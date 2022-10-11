@@ -87,12 +87,12 @@ footer.hidden {
 
 // Backgrounds
 .slide-background.title-slide {
-    background-image: url("../../../assets/imgs/note-intro.webp"),
-    url("../../../assets/imgs/cgl-stitched.webp"),
-    url("../../../assets/imgs/sf-logo-inset.webp"),
-        url("../../../assets/imgs/lets-succeed-together.webp"),
-        url("../../../assets/imgs/ferns.webp"),
-        url("../../../assets/imgs/woodbackground.webp");
+    background-image: url("../../assets/imgs/note-intro.webp"),
+    url("../../assets/imgs/cgl-stitched.webp"),
+    url("../../assets/imgs/sf-logo-inset.webp"),
+        url("../../assets/imgs/lets-succeed-together.webp"),
+        url("../../assets/imgs/ferns.webp"),
+        url("../../assets/imgs/woodbackground.webp");
     background-repeat: no-repeat;
     background-position: center,
         center 5%,
@@ -109,8 +109,8 @@ footer.hidden {
 }
 
 .slide-background.thankyou  {
-    background-image: url("../../../assets/imgs/thankyou.webp"),
-        url("../../../assets/imgs/back-green.webp");
+    background-image: url("../../assets/imgs/thankyou.webp"),
+        url("../../assets/imgs/back-green.webp");
     background-repeat: no-repeat;
     background-position: center;
     background-size: 
@@ -118,7 +118,7 @@ footer.hidden {
 }
 
 .slide-background { 
-    background-image: url("../../../assets/imgs/back-blue.webp");
+    background-image: url("../../assets/imgs/back-blue.webp");
     background-repeat: no-repeat;    
     background-position: center;
     background-size: cover;
@@ -126,7 +126,7 @@ footer.hidden {
 
 
 .slide-background.green { 
-    background-image: url("../../../assets/imgs/back-green.webp");
+    background-image: url("../../assets/imgs/back-green.webp");
     background-repeat: no-repeat;  
     background-position: center;
     background-size: cover;
