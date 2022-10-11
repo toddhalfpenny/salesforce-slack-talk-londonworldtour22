@@ -1,0 +1,772 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/cgl.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<!-- 
+					===========================================================
+					TITLE
+				-->
+				<section id="title" class="title-slide center">
+				</section>
+
+
+				<!--
+					=========================================================== 
+					ME
+				-->
+				<section id="me">
+					<h1>Me</h1>
+					<ul>
+						<li>Mobile Technical Architect @ <a>Caddify</a></li>
+						<li>London Dev Group organiser</li>
+						<li><a href="https://londonscalling.net">London's Calling</a> organiser</li>
+						<li>Salesforce MVP</li>
+						<li>Founder of <a href="https://shirtforce.org">Shirtforce</a></li>
+					</ul>
+					<img class="r-stretch"  data-src="assets/imgs/todd.jpeg">
+					<p>&nbsp;</p>
+				</section>
+
+				<!-- 
+					===========================================================
+					TOPIC INTRO
+				 -->
+				<section>
+					<h1>Building Custom Slack Apps</h1>
+					<ul>
+						<li class="fade-in-then-semi-out fragment">What, Why, and when (and when not to)</li>
+						<li class="fade-in-then-semi-out fragment">What Slacks offer us</li>
+						<li class="fade-in-then-semi-out fragment">Architecture</li>
+						<li class="fade-in-then-semi-out fragment">Building an app with the Apex SDK</li>
+					</ul>
+					<aside class="notes">
+						<ul>
+							<li>Key takeaway - slack is coming</li>
+							<li>Start thinking, if nothing else</li>
+						</ul>
+					</aside>	
+				</section>
+				
+				<!-- 
+					===========================================================
+					What are slack app, exactly?
+				 -->
+				 <section  class="green" id="what-are-apps">
+					<h1>What are slack apps, exactly?</h1>
+					<div class="r-stack">
+						<div class="fragment current-visible"  data-fragment-index="1">	
+							<img class="r-stretch screenshot" data-src="assets/imgs/polly.png">
+						</div>
+						<div class="fragment current-visible"  data-fragment-index="2">	
+							<img class="r-stretch screenshot" data-src="assets/imgs/asana.png">
+						</div>
+						<div class="fragment current-visible"  data-fragment-index="3">	
+							<img class="r-stretch screenshot" data-src="assets/imgs/salesforce.png">
+						</div>
+						<div class="fragment current-visible"  data-fragment-index="4">	
+							<img class="r-stretch screenshot" data-src="assets/imgs/task-titan.svg">
+						</div>
+					</div>
+					<aside class="notes">
+						<ul>
+							<li>Apps exist already, like Polly</li>
+							<li>Ones for Asana, that can post messages into channels</li>
+							<li>Salesforce announced Sales/Service/Marketing one</li>
+							<li>Can also have their own "app home"</li>
+						</ul>
+					</aside>			
+				</section>
+				
+				<!-- 
+					===========================================================
+					Why & When
+				 -->
+				<section>
+					<h1>Why, and When</h1>
+					<ul>
+						<li class="fade-in-then-semi-out fragment">Cos it's Salesforce now :)</li>
+						<li class="fade-in-then-semi-out fragment">It's where your users are</li>
+						<li class="fade-in-then-semi-out fragment">Useful for "Thin" work</li>
+						<li class="fade-in-then-semi-out fragment">Not for complicated UI / mass of data</li>
+					</ul>	
+					<aside class="notes">
+						<ul>
+							<li>Huge push - partners, certs, roadmap</li>
+							<li>Digital HQ - bringing SF to where you work</li>
+							<li>Term used internally - context, small<ul><li>approving an expense</li>
+								<li>assigning a case</li>
+								<li>posting chatter</li>
+								<li>searching for a record</li>
+								<li>work centered around conversation</li>
+								</ul>
+							</li>
+						</ul>
+					</aside>			
+				</section>
+
+
+				<!-- 
+					===========================================================
+					Our use case
+				 -->
+				<section>
+					<h1>Our use case</h1>
+					<!-- TODO App images (maybe app store ones)-->
+					<ul>
+						<li>Our customers create mobile apps</li>
+						<li>They want a dashboard for marketing</li>
+						<li>App installs</li>
+						<li>Rating</li>
+						<li>See latest reviews</li>
+					</ul>
+					<aside class="notes">
+						<ul>
+							<li>Custom obj storing this info</li>
+						</ul>
+					</aside>
+				</section>
+
+				
+				<!-- ===========================================================
+					What we're after
+				 -->
+				 <section  class="green" id="whatWeAreAfter">
+					<h1>What we're after</h1>
+					<img class="screenshot" src="assets/imgs/wt-dashboard.webp">
+					<aside class="notes">
+						<ul>
+							<li>Custom obj storing this info</li>
+						</ul>
+					</aside>
+				 </section>
+
+				
+				<!-- ===========================================================
+					Slack Dev - UI Elements
+				-->
+				<section >
+					<h1>Slack Development</h1>
+					<ul>
+						<li>
+							What do we have to play with?
+							<ul>
+								<li class="fragment fade-in-then-semi-out" data-fragment-index="1">UI Elements</li>
+								<li class="fragment fade-in-then-semi-out" data-fragment-index="2">Listeners</li>
+								<li class="fragment fade-in-then-semi-out" data-fragment-index="3">APIs</li>
+							</ul>
+						</li>
+					</ul>
+					<div class="r-stack">
+						<div class="fragment current-visible fade-out" data-fragment-index="1">
+							<img class="r-stretch screenshot" data-src="assets/imgs/blockkit-ui.webp">
+						</div>
+						<div class="fragment current-visible"  data-fragment-index="2">			
+							<img class="r-stretch screenshot" data-src="assets/imgs/global_shortcuts.svg">
+							<img class="r-stretch screenshot" data-src="assets/imgs/message_shortcuts.svg">
+						</div>
+						<!-- <div class="fragment current-visible"  data-fragment-index="3">	
+							<img class="r-stretch screenshot" data-src="assets/imgs/slash_commands.webp">
+						</div> -->
+						<div class="fragment current-visible"  data-fragment-index="3">	
+							<img class="r-stretch screenshot" data-src="assets/imgs/messaging_getting_started_helloworld.webp">
+						</div>
+					</div>
+					<p class="attribution">Images: https://dev.slack.com/</p>
+					<aside class="notes">
+						<ul>
+							<li>UI - Visual Components
+								<ul>
+									<li>Actions (buttons)</li>
+									<li>Input (Text, checkbox, date)</li>
+									<li>Sections / Headers / Dividers</li>
+								</ul>
+							</li>
+							<li>Listeners - Events / actions
+								<ul>
+									<li>Events</li>
+									<li>Actions / Commands</li>
+									<li>Messages</li>
+								</ul>
+							</li>
+							<li>APIs
+								<ul>
+									<li>Post messgaes</li>
+									<li>Channels</li>
+									<li>Files</li>
+								</ul>
+							</li>
+						</ul>
+					</aside>
+				</section>
+
+
+				<!-- ===========================================================
+					Slack Dev - Tools
+				-->
+				<section>
+					<h1>Slack Development</h1>
+					<ul>
+						<li>
+							How do we access these things?
+							<ul>
+								<li>Block Kit</li>
+							</ul>
+						</li>
+					</ul>
+					<div class="blockkit">
+						<img class="r-stretch screenshot" data-src="assets/imgs/blockkit-ui.webp">
+						<pre><code data-trim data-noescape data-line-numbers="3-10">
+						<!--<pre><code data-trim data-noescape data-line-numbers="0|3-10|11-13|14-20|16-19|38-52">-->
+							{
+								"blocks": [
+									{
+										"type": "header",
+										"text": {
+											"type": "plain_text",
+											"text": "This is a header block",
+											"emoji": true
+										}
+									},
+									{
+										"type": "divider"
+									},
+									{
+										"type": "section",
+										"text": {
+											"type": "mrkdwn",
+											"text": "New Paid Time Off request from <example.com|Fred Enriquez>\n\n<https://example.com|View request>"
+										}
+									},
+									{
+										"type": "section",
+										"text": {
+											"type": "mrkdwn",
+											"text": "Pick a date for the deadline."
+										},
+										"accessory": {
+											"type": "datepicker",
+											"initial_date": "1990-04-28",
+											"placeholder": {
+												"type": "plain_text",
+												"text": "Select a date",
+												"emoji": true
+											},
+											"action_id": "datepicker-action"
+										}
+									},
+									{
+										"type": "actions",
+										"elements": [
+											{
+												"type": "button",
+												"text": {
+													"type": "plain_text",
+													"text": "Click Me",
+													"emoji": true
+												},
+												"value": "click_me_123",
+												"action_id": "actionId-0"
+											}
+										]
+									}
+								]
+							}
+						</code></pre>
+					</div>
+					<aside class="notes">
+						<ul>
+							<li>Block Kit
+								<ul>
+									<li>Framework for clean + consistent UIs</li>
+									<li>Reusable Components</li>
+									<li>Block Kit builder - prototype</li>
+									<li>Limited, not images</li>
+								</ul>
+							</li>
+						</ul>
+					</aside>
+				</section>
+				<section>
+					<h1>Slack Development</h1>
+					<ul>
+						<li>
+							How do we access these things?
+							<ul>
+								<li class="fragment">Bolt SDK</li>
+								<li class="fragment">
+									<ul>
+										<li>Receive real time events</li>
+										<li>Compose rich messages</li>
+										<li>Respond to commands, shortcuts</li>
+									</ul>
+								</li>
+								<li class="fragment">And now there's the Apex SDK for Slack</li>
+							</ul>
+						</li>
+					</ul>				
+					<aside class="notes">
+						<ul>
+							<li>Bolt SDKs
+								<ul>
+									<li>JS / Python / Java</li>
+									<li>Auth</li>
+									<li>Events + messages</li>
+									<li>Web API</li>
+								</ul>
+							</li>
+						</ul>
+					</aside>
+				</section>
+
+				<!-- ===========================================================
+					How we used to do things
+				 -->
+				 <section class="green">
+					<h1>How we used to do things</h1>
+					<img class="r-stretch screenshot"   data-src="assets/imgs/sf-slack-arch-01.webp">
+					<p class="attribution">Image: https://developer.salesforce.com/blogs/</p>
+					<aside class="notes">
+						<ul>
+							<li>Slack : Middleware : SF</li>
+							<li>Not covering Slack today</li>
+							<li>Connected App for incoming</li>
+							<li>HTTP Callouts for outgoing</li>
+							<!-- TODO - ALL THE STUFF WE USED TO HAVE TO DO 
+								maybe 2nd slide with faded image with bullets of all the stuff-->
+						</ul>
+					</aside>
+				</section>
+
+
+
+				<!-- ===========================================================
+					FOYER
+				 -->
+				<section  class="green" data-transition="slide-in none">
+					<h1>Soon we'll have Foyer</h1>
+					<img class="r-stretch screenshot" data-src="assets/imgs/foyer-arch-01.webp">
+					<aside class="notes">
+						<ul>
+							<li></li>
+						</ul>
+					</aside>
+				</section>
+				<section data-transition="none slide-out">
+					<h1>Apex SDK for Slack</h1>
+					<ul>
+						<li class="fragment fade-in-then-semi-out">No need for Middleware</li>
+						<li class="fragment fade-in-then-semi-out">User <-> User Auth</li>
+						<li class="fragment fade-in-then-semi-out">Currently Limited Pilot</li>
+						<li class="fragment fade-in-then-semi-out">Beta in Winter</li>
+						<li class="fragment fade-in-then-semi-out">Packageable</li>
+						<li class="fragment fade-in-then-semi-out">Free to build with</li>
+					</ul>
+					<aside class="notes">
+						<ul>
+							<li>Safe Harbour</li>
+							<li>Free to use</li>
+							<li>Some cases you might want to keep it</li>
+							<li>Handles Auth</li>
+							<li>UIs created from existing metadata</li>
+							<li>Apex SDK for Slack</li>
+						</ul>
+					</aside>
+				</section>
+
+
+				<!-- ===========================================================
+					We want reviews to be listed
+				 -->
+				 <section  class="green" id="our-review">
+					<h1>What we're after</h1>
+					<img class="screenshot" src="assets/imgs/wt-reviews.webp">
+					<aside class="notes">
+						<ul>
+							<li>Custom obj storing reviews</li>
+						</ul>
+					</aside>
+				 </section>
+				 
+				<!-- ===========================================================
+					Using FOYER (1)
+				 -->
+				 <section id="using-foyer1">
+					<h1>Define a SlackApp (and a <em>.slackapp</em>)</h1>
+					<pre class="yaml padding" ><code data-trim data-noescape data-line-numbers="0|2-7|3-5| 8-13|9-11">
+description: London World Tour - Caddify Apex SDK Demo
+commands:
+	/apex-hello:
+		action:
+			definition: apex__action__SayHello
+		title: Say Hello
+		description: A command to say Hello
+events:
+	app_home_opened:
+		action:
+			definition: apex__action__EventDispatcherAppHomeOpened
+		title: Example event handler for app_home_opened
+		description: The event fires when a user opens the home tab.
+					</code></pre>
+					<aside class="notes">
+						<ul>
+							<li>Slack app on slack</li>
+							<li>New App type (no UI)</li>
+							<li>define commands/event listeners</li>
+						</ul>
+					</aside>
+				</section>
+
+
+				<!-- ===========================================================
+					Using FOYER (2)
+				 -->
+				<section id="using-foyer2">
+					<h1>App Home Opened - Event Dispatcher</h1>
+					<pre class="java padding" ><code data-trim data-noescape data-line-numbers="0|1-2|6-7|10-11">
+						public class EventDispatcherAppHomeOpened extends 
+							Slack.EventDispatcher {
+							...
+							public class Handler implements Slack.RunnableHandler {
+								public void run() {
+									Slack.ViewReference viewReference = 
+										Slack.View.app_home.get();
+									...
+									
+									Slack.ViewsPublishResponse response = 
+										botClient.viewsPublish(req);
+								}
+							}
+							...
+						}
+					</code></pre>
+					<aside class="notes">
+						<ul>
+							<li>Extend dispatcher</li>
+							<li>get a ViewReference</li>
+							<li>publish it</li>
+						</ul>
+					</aside>
+				</section>
+
+
+				<!-- ===========================================================
+					Using FOYER (3)
+				 -->
+				 <section id="using-foyer3">
+					<h1>Data Provider</h1>
+					<pre class="padding" ><code data-trim data-noescape data-line-numbers="0">
+						public with sharing class DataProviderReview {
+
+							public static List&#60;Review__c> getReviews() {
+								
+								List&#60;Review__c> reviews = 
+									[SELECT Id, Name, Date__c, ...
+										FROM Review__c 
+										ORDER BY Date__c DESC LIMIT 5];
+								
+								return reviews;
+							}
+
+						}						
+					</code></pre>
+				</section>
+
+
+
+				<!-- ===========================================================
+					Using FOYER (4)
+				 -->
+				 <section id="using-foyer4">
+					 <!-- TODO Buttons + visibility -->
+					<h1>View Definition</h1>
+					<pre class="language-yaml" ><code data-trim data-noescape data-line-numbers="0|1-3|8-10|11-14|19-23">
+dataproviders:
+	review:
+		definition: "apex__DataProviderReview.getReviews"
+components:
+	- definition: home
+		components:
+			...
+			- definition: header
+				properties:
+					text: "Recent reviews"
+			- definition: iteration
+				properties:
+					foreach: "{!review}"
+					foritem: "review"
+				components:
+					- definition: section
+						properties:
+						text:
+							text: "{!IF(review.OS__c == 'iOS',\
+								':apple:', \
+								':robot_face:')} \n
+								*Review:* {!review.Content__c}"
+							type: mrkdwn	
+					</code></pre>
+				</section>
+
+
+				<section  class="green" id="same-outcome">
+					<h1>And now we have our reviews</h1>
+					<img class="screenshot" src="assets/imgs/wt-reviews.webp">
+				</section>
+
+
+				<!-- ===========================================================
+					Add interactions (1)
+				 -->
+				 <section id="interactions1">
+				   <h1>Let's add some interactivity</h1>
+				   <pre class="fragment language-yaml" ><code data-trim data-noescape data-line-numbers="0|2|4-9|16-23">
+// app_home.view
+- definition: actions
+	components:
+	- definition: button
+		properties:
+			label: "View Review"
+			style: "primary"
+			name: "view"
+			url: "{!view.properties.instanceUrl}/{!review.Id}"
+	- definition: button
+		properties:
+			label: "Create Case"
+			style: "danger"
+			name: "create_case"
+			events:
+			onclick:
+				definition: "apex__action__ActionDispatcherCreateCase"
+				properties:
+					pushModal: true
+					reviewId: '{!review.Id}'
+					reviewOS: '{!review.OS__c}'
+					reviewContent: '{!review.Content__c}'
+				   </code></pre>
+			   </section>
+
+
+				<!-- ===========================================================
+					Add interactions (2)
+				 -->
+				 <section id="interactions2">
+					<h1>Capture some input</h1>
+					<pre class="language-yaml" ><code data-trim data-noescape data-line-numbers="0|3|4-6|7-11|14-21">
+// create_case.view
+components:
+	- definition: modal
+		properties:
+			title: "Create case"
+			submitLabel: "Create"
+		events:
+			onsubmit:
+				definition: "apex__action__ActionDispatcherSubmitCase"
+				properties:
+					reviewId: "{!view.properties.reviewId}"
+		components:
+			...
+			- definition: input
+				properties:
+					label: "Subject" 
+					required: true
+				components:
+					- definition: textInput
+						properties:
+							placeholder: "Subject"
+					</code></pre>
+				</section>
+
+
+				<!-- ===========================================================
+					Add interactions (3)
+				 -->
+				 <section id="interactions3">
+					<h1>Insert / Update our records</h1>
+					<pre class="java" ><code data-trim data-noescape data-line-numbers="0|1-2|4-7|10-14|16-21">
+public class ActionDispatcherSubmitCase extends 
+	Slack.ActionDispatcher {
+
+		public Slack.ModalView call() {
+			Slack.ModalView modalView = submitCase();
+			return modalView;
+		}
+
+		private Slack.ModalView submitCase() {
+			Map<String, Object> formData = this.context.getFormData();
+			
+			Case myCase = new Case();
+			myCase.Subject = (String) formData.get('Subject');
+			insert myCase;
+
+			String title = 'Record Created';
+			String body =  'Case was created successfully.';
+			return MessageModal.getMessageModalView(
+				title, 
+				new List<String>{ body }
+			);
+		}
+					</code></pre>
+				</section>
+
+
+				<!-- ===========================================================
+					Creating a case
+				 -->
+				 <section id="createcase" class="fullvideo" data-background-video="assets/vids/wt-create-case-02.mp4" 
+				data-background-size="contain">
+				 </section>
+
+
+				<!-- ===========================================================
+					Add interactions (4)
+				 -->
+				 <section id="interactions4">
+					<h1>Conditional component rendering</h1>
+					<pre class="language-yaml" ><code data-trim data-noescape data-line-numbers="3-4|8-9">
+// app_home.view
+
+- definition: actions
+	visibility: "{!ISBLANK(review.Case__c)}"
+	components:
+		...
+
+- definition: actions
+	visibility: "{!NOT(ISBLANK(review.Case__c))}"
+	components:
+		...
+					</code></pre>
+				</section>
+				
+				<!-- ===========================================================
+					We want reviews to be listed
+				 -->
+				 <section  class="green" id="conditional-buttons">
+					<h1>Conditional buttons</h1>
+					<img class="screenshot" src="assets/imgs/wt-reviews-with-buttons.webp">
+				 </section>
+
+				<!-- 
+					===========================================================
+					What we've covered
+				 -->
+				 <section>
+					<h1>Wrap-up</h1>
+					<ul>
+						<li class="fade-in-then-semi-out fragment">You can start building today</li>
+						<li class="fade-in-then-semi-out fragment">Huge focus from Salesforce</li>
+						<li class="fade-in-then-semi-out fragment">Great set of tools available</li>
+						<li class="fade-in-then-semi-out fragment">It's going to get a lot easier</li>
+						<li class="fade-in-then-semi-out fragment">Start thinking about your use-cases</li>
+					</ul>
+					<aside class="notes">
+						<ul>
+							<li>Get invoved and certified</li>
+						</ul>
+					</aside>
+				</section>
+
+				<!-- 
+					===========================================================
+					Resources
+				 -->
+				 <section class="center">
+					<h1>Resources</h1>
+					<ul>
+						<li>CodeLive video series<a target="_blank" href="https://www.youtube.com/watch?v=vhb5ZS5T73s" class="href">https://www.youtube.com/watch?v=vhb5ZS5T73s</a></li>
+						<li>Salesforce Slack Starter App<a target="_blank" href="https://github.com/developerforce/salesforce-slack-starter-kit"  class="href">https://github.com/developerforce/salesforce-slack-starter-kit</a></li>
+						<li>Ready to Fly App<a target="_blank" href="https://developer.salesforce.com/blogs/2022/02/building-a-slack-app-that-integrates-with-salesforce-part-1-architectural-overview"  class="href">https://developer.salesforce.com/blogs/2022/02/building-a-slack-app-that-integrates-with-salesforce-part-1-architectural-overview</a></li>
+						<li>Partner Slack Chatter Group<a target="_blank" href="https://partners.salesforce.com/_ui/core/chatter/groups/GroupProfilePage?g=0F94V0000002Bv7"  class="href">https://partners.salesforce.com/_ui/core/chatter/groups/GroupProfilePage?g=0F94V0000002Bv7</a></li>
+						<li>Slack Dev Docs<a  target="_blank" href="https://slack.dev/" class="href">https://slack.dev/</a></li>
+					</ul>
+					<aside class="notes">
+						<ul>
+							<li>Kevin Poorma + Mohith Shrivastava</li>
+							<li>Alba Rivas - git repo, blog and youtube</li>
+						</ul>
+					</aside>
+				</section>
+
+				<!-- 
+					===========================================================
+					Thank you
+				 -->
+				<section id="thankyou" class="thankyou center">
+				</section>
+
+				<footer id='footer' class="hidden">
+					<p class="author"><a href="https://twitter.com/toddhalfpenny">@toddhalfpenny</a></p>
+					<p class="hashtags"></a></p>
+				</footer>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script src="plugin/zoom/zoom.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				controls: false,
+				hash: true,
+				center: false,
+				maxScale: 1.8,
+				margin: 0.10,
+				progress: false,
+				width: 1300,
+				height: 900,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealZoom ]
+			});
+			Reveal.on( 'slidechanged', event => {
+				console.log('slidechanged', event.currentSlide);
+				switch ( event.currentSlide.id ) {
+					case 'title' :
+					case 'what-are-apps':
+					case 'whatWeAreAfter':
+					case 'createcase':
+					case 'localdev':
+					//case 'using-foyer1':
+					case 'same-outcome':
+					case 'thankyou':
+						hideFooter();
+						break;
+					default: 
+						showFooter();
+				}
+			} );
+
+			function hideFooter() {
+				console.log('hideFooter');
+				let el = document.getElementById('footer');
+
+				console.log('footer', el);
+				if (el.className !== 'hidden'){ el.className = 'hidden' };
+			}
+
+			function showFooter() {
+				console.log('showFooter');
+				let el = document.getElementById('footer');
+				console.log('footer', el);
+				if (el.className && el.className === 'hidden'){ el.className = ''};
+			}
+		</script>
+	</body>
+</html>

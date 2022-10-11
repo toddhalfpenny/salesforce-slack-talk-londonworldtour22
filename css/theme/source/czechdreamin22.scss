@@ -1,0 +1,227 @@
+/**
+ * CzechDreamin theme for reveal.js
+ */
+
+
+// Default mixins and settings -----------------
+@import "../template/mixins";
+@import "../template/settings";
+// ---------------------------------------------
+
+
+// Include theme-specific fonts
+@import url(./fonts/source-sans-pro/source-sans-pro.css);
+
+// Our variables
+:root {
+    --accent: #0C9EDB;
+}
+
+
+// Override theme settings (see ../template/settings.scss)
+$backgroundColor: #fff;
+
+$mainColor: #595959;
+$headingColor: #222;
+
+$mainFontSize: 50px;
+$mainFont: 'Source Sans Pro', Helvetica, sans-serif;
+$headingFont: 'Source Sans Pro', Helvetica, sans-serif;
+$headingTextShadow: none;
+$headingLetterSpacing: normal;
+$headingTextTransform: none;
+$headingFontWeight: normal;
+$linkColor: #0C9EDB;
+$linkColorHover: lighten( $linkColor, 15% );
+$selectionBackgroundColor: lighten( $linkColor, 25% );
+
+$heading1Size: 1.5em;
+$heading2Size: 1.6em;
+$heading3Size: 1.1em;
+$heading4Size: 1.0em;
+
+// Change text colors against dark slide backgrounds
+@include dark-bg-text-color(#fff);
+
+
+// Theme template ------------------------------
+@import "../template/theme";
+// ---------------------------------------------
+// Layout
+section {
+    vertical-align: top;
+}
+
+section ul {
+    vertical-align: top;
+}
+
+.cols-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.reveal .margin-0 div {
+    margin: 0;
+}
+
+footer {
+    font-size: 0.8em;
+    position: fixed;
+    top: 95%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 90%
+}
+
+footer .czechtags {
+    text-align: right;
+}
+
+footer.hidden {
+    display: none;
+}
+
+// Backgrounds
+.slide-background.title-slide {
+    background-image: url("../../../assets/imgs/top-left-background.png"),
+    url("../../../assets/imgs/title-sponsors.png");
+    background-repeat: no-repeat;
+    background-position: top left,
+        bottom center;
+    background-size: 25%,
+        80%;
+}
+
+.slide-background.thankyou {
+    background-image: url("../../../assets/imgs/top-left-background.png"),
+    url("../../../assets/imgs/CzechDreamin.png"),
+    url("../../../assets/imgs/title-sponsors.png");
+    background-repeat: no-repeat;
+    background-position: top left,
+        97% 3%,
+        bottom center;
+    background-size: 10em,
+        10em,
+        80%;
+}
+
+.slide-background {  background-image: url("../../../assets/imgs/top-left-background.png"),
+    url("../../../assets/imgs/CzechDreamin.png");
+    background-repeat: no-repeat;
+    background-position: top left,
+        97% 97%;
+    background-size: 5em,
+        10%;
+}
+.fullvideo {
+    background-image: none;
+}
+
+// Typography
+
+.href {
+    display: block;
+    font-size:0.6em;
+    color: var(--accent);
+}
+
+.reveal .slides {
+    text-align: left;
+}
+.reveal .slides .title-slide, reveal .slides #thankyou  {
+    text-align: center;
+}
+
+.reveal h1 {
+    text-align: left;
+    font-size: 1.4em;
+    border-width: 0 0 3px;
+    border-style: solid;
+    border-image: 
+      linear-gradient(
+        to right, 
+        var(--accent), 
+        rgba(0, 0, 0, 0)
+      ) 7 ;
+      margin-bottom: 0.5em;
+}
+.title-slide h1, .thankyou h1 {
+    border-width: 0;
+    text-align: center;
+    font-size: 1.5em;
+}
+#thankyou p {
+    line-height: 1em;
+    text-align: center;
+}
+
+.author {
+    font-style: italic;
+}
+
+.attribution {
+    color: var(--accent);
+    font-size: 0.5em;
+}
+
+.reveal pre {
+    margin-left: 0;
+}
+.reveal pre.padding code {
+    padding: 1em;
+}
+
+hr {
+    background-color: var(--accent);
+    border: none;
+    height: 3px;
+    max-width: 20%;
+}
+
+#me img {
+    border-radius: 0.5em;
+    margin: 0 0 0 1em;
+}
+
+img.screenshot {
+    box-shadow: var(--accent) 5px 8px 35px;
+    border-radius: 0.5em;
+    margin-right: 1em;
+}
+img.screenshot, video {
+    box-shadow: var(--accent) 5px 8px 35px;
+    border-radius: 0.2em;
+}
+
+
+// Block Kit
+div.blockkit {
+    display: grid;
+    grid-template-columns: 30% auto;
+    grid-column-gap: 1em;
+}
+div.blockkit img {
+    max-width: 100% !important;
+}
+div.blockkit pre {
+    font-size: 0.4em;
+    line-height: 1.1em;
+}
+
+// Bolt SDK
+pre.boltsdk {
+    font-size: 0.5em;
+    line-height: 1.1em;
+    width: 100%;
+}
+
+#using-foyer1 pre {
+    height: 550px;
+}
+#using-foyer2 pre  {
+    height: 500px;
+}
+#using-foyer3 pre  {
+    height: 500px;
+}

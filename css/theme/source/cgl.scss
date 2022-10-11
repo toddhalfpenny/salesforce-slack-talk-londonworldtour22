@@ -1,0 +1,251 @@
+/**
+ * London;s Calling theme for reveal.js
+ */
+
+
+// Default mixins and settings -----------------
+@import "../template/mixins";
+@import "../template/settings";
+// ---------------------------------------------
+
+
+// Include theme-specific fonts
+@import url(./fonts/source-sans-pro/source-sans-pro.css);
+
+// Our variables
+:root {
+    --accent: #0C9EDB;
+    --titleColor: #002060;
+    --mainColor: #595959;
+}
+
+
+// Override theme settings (see ../template/settings.scss)
+$backgroundColor: #fff;
+
+$mainColor: #595959;
+$headingColor: #002060;
+
+$mainFontSize: 50px;
+$mainFont: Arial, 'Source Sans Pro', Helvetica, sans-serif;
+$headingFont: Arial, 'Source Sans Pro', Helvetica, sans-serif;
+$headingTextShadow: none;
+$headingLetterSpacing: normal;
+$headingTextTransform: none;
+$headingFontWeight: normal;
+$linkColor: #002060;
+$linkColorHover: lighten( $linkColor, 15% );
+$selectionBackgroundColor: lighten( $linkColor, 25% );
+
+$heading1Size: 1.5em;
+$heading2Size: 1.6em;
+$heading3Size: 1.1em;
+$heading4Size: 1.0em;
+
+// Change text colors against dark slide backgrounds
+@include dark-bg-text-color(#fff);
+
+
+// Theme template ------------------------------
+@import "../template/theme";
+// ---------------------------------------------
+// Layout
+section {
+    vertical-align: top;
+}
+
+section ul {
+    vertical-align: top;
+}
+
+.cols-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.reveal .margin-0 div {
+    margin: 0;
+}
+
+footer {
+    font-size: 0.8em;
+    position: fixed;
+    top: 95%;
+    display: grid;
+    grid-template-columns: 1fr;
+    text-align: right;
+    width: 100%
+}
+
+footer .hashtags {
+    text-align: right;
+}
+
+footer.hidden {
+    display: none;
+}
+
+// Backgrounds
+.slide-background.title-slide {
+    background-image: url("../../../assets/imgs/note-intro.webp"),
+    url("../../../assets/imgs/cgl-stitched.webp"),
+    url("../../../assets/imgs/sf-logo-inset.webp"),
+        url("../../../assets/imgs/lets-succeed-together.webp"),
+        url("../../../assets/imgs/ferns.webp"),
+        url("../../../assets/imgs/woodbackground.webp");
+    background-repeat: no-repeat;
+    background-position: center,
+        center 5%,
+        90% 5%,
+        95% 90%,
+        center,
+        center;
+    background-size: 50%,
+        30%,
+        10%,
+        30%,
+        cover,
+        cover;
+}
+
+.slide-background.thankyou  {
+    background-image: url("../../../assets/imgs/thankyou.webp"),
+        url("../../../assets/imgs/back-green.webp");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 
+        contain, cover;
+}
+
+.slide-background { 
+    background-image: url("../../../assets/imgs/back-blue.webp");
+    background-repeat: no-repeat;    
+    background-position: center;
+    background-size: cover;
+}
+
+
+.slide-background.green { 
+    background-image: url("../../../assets/imgs/back-green.webp");
+    background-repeat: no-repeat;  
+    background-position: center;
+    background-size: cover;
+}
+
+section#title , section#thankyou {
+    margin-top: 3em;
+}
+
+.fullvideo {
+    background-image: none;
+}
+
+// Typography
+
+.href {
+    display: block;
+    font-size:0.6em;
+}
+
+.reveal .slides {
+    text-align: left;
+}
+.reveal .slides .title-slide, reveal .slides #thankyou  {
+    text-align: center;
+}
+
+.reveal h1 {
+    text-align: left;
+    font-size: 1.4em;
+      margin-bottom: 0.5em;
+}
+.reveal .green h1 {
+    color: #113a60;
+}
+.title-slide h1, .thankyou h1 {
+    border-width: 0;
+    color: var(--titleColor);
+    font-size: 1.5em;
+    margin-bottom: 0;
+}
+.thankyou h1 {
+    text-align: center;
+}
+.title-slide p, #thankyou p {
+    color: #89050f;
+    line-height: 1em;
+    text-align: left;
+    font-size: 0.8em;
+}
+
+.author {
+    font-style: italic;
+}
+
+.attribution {
+    color: var(--titleColor);
+    font-size: 0.5em;
+}
+
+.reveal pre {
+    margin-left: 0;
+}
+.reveal pre.padding code {
+    padding: 1em;
+}
+
+hr {
+    background-color: var(--mainColor);
+    border: none;
+    height: 2px;
+    max-width: 100%;
+    margin-bottom: 3em;
+}
+
+#me img {
+    border-radius: 0.5em;
+    margin: 0 0 0 1em;
+}
+
+img.screenshot {
+    background-color: rgb(220, 235, 240);
+    box-shadow: var(--titleColor) 5px 8px 35px;
+    border-radius: 0.5em;
+    margin-right: 1em;
+}
+img.screenshot, video {
+    box-shadow: var(--titleColor) 5px 8px 35px;
+    border-radius: 0.2em;
+}
+
+
+// Block Kit
+div.blockkit {
+    display: grid;
+    grid-template-columns: 30% auto;
+    grid-column-gap: 1em;
+}
+div.blockkit img {
+    max-width: 100% !important;
+}
+div.blockkit pre {
+    font-size: 0.4em;
+    line-height: 1.1em;
+}
+
+// Bolt SDK
+pre.boltsdk {
+    font-size: 0.5em;
+    line-height: 1.1em;
+    width: 100%;
+}
+
+#using-foyer1 pre {
+    height: 550px;
+}
+#using-foyer2 pre  {
+    height: 500px;
+}
+#using-foyer3 pre  {
+    height: 500px;
+}
